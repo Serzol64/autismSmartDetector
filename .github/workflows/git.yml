@@ -14,7 +14,7 @@ jobs:
 
       - name: Configure Git Remote
         run: |
-          git remote set-url origin https://${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/${{ secrets.GITFLIC_ORG }}/autismsmartdetector.git
+          git remote set-url origin https://${{ secrets.GITFLIC_ORG }}:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/${{ secrets.GITFLIC_ORG }}/autismsmartdetector.git
 
       - name: Push to GitFlic
         run: |
