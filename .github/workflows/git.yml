@@ -1,21 +1,24 @@
-name: Push to GitFlic
+   name: Push to GitFlic
 
-on:
-  push:
-    branches:
-      - main
+   on:
+     push:
+       branches:
+         - main
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+   jobs:
+     build:
+       runs-on: ubuntu-latest
+       steps:
+         - name: Checkout Code
+           uses: actions/checkout@v3
 
-      - name: Configure Git Remote
-        run: |
-          git remote set-url origin https://${{ secrets.GITFLIC_ORG }}:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/${{ secrets.GITFLIC_ORG }}/autismsmartdetector.git
+         - name: Add credentials
+           run: |
+             git config --global credential.helper store
+             echo "https://${{ secrets.GITFLIC_ORG }}:${{ secrets.GITFLIC_TOKEN }}@gitflic.ru/" > ~/.git-credentials
 
-      - name: Push to GitFlic
-        run: |
-          git push origin main
+         - name: Push to GitFlic
+           run: |
+             git remote set-url origin https://gitflic.ru/project/${{ secrets.GITFLIC_ORG }}/autismsmartdetector.git
+             git push origin main
+   
